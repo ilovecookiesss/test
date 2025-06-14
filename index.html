@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyun Dünyası - En İyi Oyun Platformu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Temel Stiller */
+        :root {
+          --primary-color: #6c5ce7;
+          --secondary-color: #a29bfe;
+          --dark-color: #2d3436;
+          --light-color: #f5f6fa;
+          --accent-color: #fd79a8;
+          --success-color: #00b894;
+          --warning-color: #fdcb6e;
+          --danger-color: #d63031;
+          --text-color: #2d3436;
+          --text-light: #636e72;
+          --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          --transition: all 0.3s ease;
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+          background-color: #f8f9fa;
+          color: var(--text-color);
+          line-height: 1.6;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        /* Navbar Stilleri */
+        .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 2rem;
+          background-color: white;
+          box-shadow: var(--shadow);
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+        }
+
+        .logo a {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+        }
+
+        .logo-beta {
+          font-size: 0.8rem;
+          background-color: var(--accent-color);
+          color: white;
+          padding: 0.2rem 0.5rem;
+          border-radius: 1rem;
+          margin-left: 0.5rem;
+          align-self: flex-start;
+        }
+
+        .nav-links {
+          display: flex;
+          list-style: none;
+          gap: 1.5rem;
+        }
+
+        .nav-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          transition: var(--transition);
+        }
+
+        .nav-button:hover {
+          background-color: var(--secondary-color);
+          color: white;
+        }
+
+        .nav-button i {
+          font-size: 1.1rem;
+        }
+
+        .user-actions {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .search-bar {
+          display: flex;
+          align-items: center;
+          background-color: var(--light-color);
+          border-radius: 2rem;
+          padding: 0.5rem 1rem;
+          transition: var(--transition);
+        }
+
+        .search-bar:focus-within {
+          box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .search-bar input {
+          border: none;
+          background: transparent;
+          outline: none;
+          width: 200px;
+        }
+
+        .search-bar button {
+          background: transparent;
+          border: none;
+          color: var(--text-light);
+          cursor: pointer;
+        }
+
+        .user-profile-button, .cart-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.6rem 1.2rem;
+          border-radius: 2rem;
+          border: none;
+          cursor: pointer;
+          transition: var(--transition);
+          font-weight: 500;
+        }
+
+        .user-profile-button {
+          background-color: var(--light-color);
+        }
+
+        .user-profile-button:hover {
+          background-color: #dfe6e9;
+        }
+
+        .cart-button {
+          background-color: var(--primary-color);
+          color: white;
+        }
+
+        .cart-button:hover {
+          background-color: #5649d6;
+        }
+
+        .cart-count {
+          font-weight: 700;
+        }
+
+        /* Ana İçerik */
+        .container {
+          display: flex;
+          min-height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+          width: 280px;
+          padding: 1.5rem;
+          background-color: white;
+          box-shadow: var(--shadow);
+        }
+
+        .sidebar-section {
+          margin-bottom: 2rem;
+        }
+
+        .sidebar-section h3 {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+          color: var(--text-light);
+          font-size: 1.1rem;
+        }
+
+        .sidebar-section h4 {
+          margin-bottom: 0.8rem;
+          color: var(--text-color);
+          font-size: 0.95rem;
+        }
+
+        .button-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.5rem;
+        }
+
+        .sidebar-button {
+          padding: 0.6rem;
+          border: 1px solid #dfe6e9;
+          border-radius: 0.5rem;
+          background-color: white;
+          cursor: pointer;
+          transition: var(--transition);
+          font-size: 0.85rem;
+          text-align: center;
+        }
+
+        .sidebar-button:hover {
+          background-color: var(--primary-color);
+          color: white;
+          border-color: var(--primary-color);
+        }
+
+        .content-area {
+          flex: 1;
+          padding: 2rem;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+          position: relative;
+          border-radius: 1rem;
+          overflow: hidden;
+          margin-bottom: 2rem;
+          height: 400px;
+        }
+
+        .hero-banner img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .banner-info {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 2rem;
+          background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+          color: white;
+        }
+
+        .badge {
+          display: inline-block;
+          padding: 0.3rem 0.8rem;
+          border-radius: 0.3rem;
+          font-size: 0.8rem;
+          font-weight: 700;
+          margin-bottom: 0.8rem;
+        }
+
+        .new-release-badge {
+          background-color: var(--accent-color);
+        }
+
+        .banner-info h2 {
+          font-size: 2.2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .banner-info p {
+          margin-bottom: 1.5rem;
+          font-size: 1.1rem;
+          max-width: 600px;
+        }
+
+        .banner-actions {
+          display: flex;
+          gap: 1rem;
+        }
+
+        .main-cta-button, .secondary-cta-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.8rem 1.5rem;
+          border-radius: 0.5rem;
+          font-weight: 600;
+          transition: var(--transition);
+        }
+
+        .main-cta-button {
+          background-color: var(--primary-color);
+          color: white;
+          border: none;
+        }
+
+        .main-cta-button:hover {
+          background-color: #5649d6;
+          transform: translateY(-2px);
+        }
+
+        .secondary-cta-button {
+          background-color: rgba(255, 255, 255, 0.2);
+          color: white;
+          border: 1px solid white;
+        }
+
+        .secondary-cta-button:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Oyun Grid */
+        .section-title {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+          font-size: 1.5rem;
+        }
+
+        .view-all-link {
+          margin-left: auto;
+          font-size: 0.9rem;
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+
+        .view-all-link:hover {
+          text-decoration: underline;
+        }
+
+        .game-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .game-card {
+          background-color: white;
+          border-radius: 0.8rem;
+          overflow: hidden;
+          box-shadow: var(--shadow);
+          transition: var(--transition);
+        }
+
+        .game-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-card img {
+          width: 100%;
+          height: 180px;
+          object-fit: cover;
+        }
+
+        .card-content {
+          padding: 1.2rem;
+        }
+
+        .card-content h3 {
+          margin-bottom: 0.3rem;
+          font-size: 1.1rem;
+        }
+
+        .developer {
+          color: var(--text-light);
+          font-size: 0.85rem;
+          margin-bottom: 0.8rem;
+        }
+
+        .price-info {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .price-old {
+          text-decoration: line-through;
+          color: var(--text-light);
+          font-size: 0.9rem;
+        }
+
+        .price-new {
+          font-weight: 700;
+          color: var(--primary-color);
+          font-size: 1.1rem;
+        }
+
+        .discount-badge {
+          background-color: var(--success-color);
+          color: white;
+          padding: 0.2rem 0.5rem;
+          border-radius: 0.3rem;
+          font-size: 0.8rem;
+          font-weight: 700;
+        }
+
+        .card-buttons {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .card-action-button {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.6rem;
+          border: none;
+          border-radius: 0.5rem;
+          background-color: var(--light-color);
+          cursor: pointer;
+          transition: var(--transition);
+          font-size: 0.9rem;
+        }
+
+        .card-action-button:hover {
+          background-color: #dfe6e9;
+        }
+
+        .card-action-button:first-child:hover {
+          background-color: var(--primary-color);
+          color: white;
+        }
+
+        /* Footer */
+        .footer {
+          background-color: var(--dark-color);
+          color: white;
+          padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 2rem;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+          font-size: 1.2rem;
+          margin-bottom: 1.2rem;
+          position: relative;
+          padding-bottom: 0.5rem;
+        }
+
+        .footer-section h4::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 50px;
+          height: 2px;
+          background-color: var(--primary-color);
+        }
+
+        .about-us p {
+          font-size: 0.9rem;
+          color: #b2bec3;
+        }
+
+        .button-grid-footer {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.5rem;
+        }
+
+        .footer-button {
+          padding: 0.6rem;
+          border-radius: 0.3rem;
+          background-color: rgba(255, 255, 255, 0.1);
+          text-align: center;
+          font-size: 0.85rem;
+          transition: var(--transition);
+        }
+
+        .footer-button:hover {
+          background-color: var(--primary-color);
+        }
+
+        .social-icons {
+          display: flex;
+          gap: 1rem;
+        }
+
+        .social-icon-button {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: var(--transition);
+        }
+
+        .social-icon-button:hover {
+          background-color: var(--primary-color);
+          transform: translateY(-3px);
+        }
+
+        .copyright {
+          text-align: center;
+          padding-top: 2rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          font-size: 0.9rem;
+          color: #b2bec3;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 1024px) {
+          .container {
+            flex-direction: column;
+          }
+          
+          .sidebar {
+            width: 100%;
+            order: 2;
+          }
+          
+          .content-area {
+            order: 1;
+          }
+          
+          .button-grid {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .navbar {
+            flex-direction: column;
+            padding: 1rem;
+            gap: 1rem;
+          }
+          
+          .nav-links {
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+          
+          .user-actions {
+            width: 100%;
+            justify-content: center;
+          }
+          
+          .search-bar input {
+            width: 150px;
+          }
+          
+          .hero-banner {
+            height: 300px;
+          }
+          
+          .banner-info h2 {
+            font-size: 1.8rem;
+          }
+          
+          .button-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .nav-links {
+            gap: 0.5rem;
+          }
+          
+          .nav-button {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+          }
+          
+          .user-actions {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          
+          .search-bar {
+            width: 100%;
+          }
+          
+          .search-bar input {
+            width: 100%;
+          }
+          
+          .hero-banner {
+            height: 250px;
+          }
+          
+          .banner-info {
+            padding: 1rem;
+          }
+          
+          .banner-info h2 {
+            font-size: 1.5rem;
+          }
+          
+          .banner-actions {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          
+          .button-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .game-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        /* Pulse animasyonu */
+        @keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+
+        .pulse {
+          animation: pulse 0.5s ease;
+        }
+
+        /* Mobil menü */
+        .menu-toggle {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          color: var(--primary-color);
+          cursor: pointer;
+          padding: 0.5rem;
+          display: none;
+        }
+
+        @media (min-width: 769px) {
+          .nav-links.active {
+            display: flex;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .nav-links {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            padding: 1rem 0;
+          }
+          
+          .nav-links.active {
+            display: flex;
+          }
+          
+          .menu-toggle {
+            display: block;
+          }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">Oyun Dünyası <span class="logo-beta">BETA</span></a>
+        </div>
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="store.html" class="nav-button"><i class="fas fa-store"></i> Mağaza</a></li>
+                <li><a href="library.html" class="nav-button"><i class="fas fa-book"></i> Kütüphane</a></li>
+                <li><a href="community.html" class="nav-button"><i class="fas fa-users"></i> Topluluk</a></li>
+                <li><a href="news.html" class="nav-button"><i class="fas fa-newspaper"></i> Haberler</a></li>
+                <li><a href="support.html" class="nav-button"><i class="fas fa-life-ring"></i> Destek</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <div class="search-bar">
+                <input type="text" placeholder="Oyun, geliştirici ara...">
+                <button aria-label="Arama"><i class="fas fa-search"></i></button>
+            </div>
+            <button class="user-profile-button" aria-label="Kullanıcı Profili"><i class="fas fa-user-circle"></i> Profil</button>
+            <button class="cart-button" aria-label="Sepet"><i class="fas fa-shopping-cart"></i> Sepet <span class="cart-count">(0)</span></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-filter"></i> Filtreler</h3>
+                <div class="filter-group">
+                    <h4>Kategoriler</h4>
+                    <div class="button-grid">
+                        <button class="sidebar-button">Aksiyon</button>
+                        <button class="sidebar-button">Macera</button>
+                        <button class="sidebar-button">RPG</button>
+                        <button class="sidebar-button">Strateji</button>
+                        <button class="sidebar-button">Simülasyon</button>
+                        <button class="sidebar-button">Spor</button>
+                        <button class="sidebar-button">Bağımsız</button>
+                        <button class="sidebar-button">Korku</button>
+                        <button class="sidebar-button">Bulmaca</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="content-area">
+            <div class="hero-banner">
+                <img src="https://via.placeholder.com/1200x400/34495e/ecf0f1?text=YENI+CIKAN%3A+Efsanevi+Savas" alt="Ana Banner">
+                <div class="banner-info">
+                    <span class="badge new-release-badge">YENİ ÇIKAN</span>
+                    <h2>Efsanevi Savaşlar: Yükseliş</h2>
+                    <p>Destansı bir dünyaya adım at, kaderini yeniden yaz. Şimdi ön sipariş ver!</p>
+                    <div class="banner-actions">
+                        <button class="main-cta-button"><i class="fas fa-shopping-basket"></i> Ön Sipariş Ver</button>
+                        <a href="game-detail.html" class="secondary-cta-button"><i class="fas fa-info-circle"></i> Detayları Gör</a>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title"><i class="fas fa-fire"></i> Güncel Fırsatlar <a href="store.html?filter=discounts" class="view-all-link">Tümünü Gör <i class="fas fa-chevron-right"></i></a></h2>
+            <div class="game-grid">
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Aksiyon+Oyunu+1" alt="Aksiyon Oyunu 1">
+                    <div class="card-content">
+                        <h3>Karanlık Diyarlar</h3>
+                        <p class="developer">Geliştirici: Studio Nova</p>
+                        <div class="price-info">
+                            <span class="price-old">79.99 TL</span>
+                            <span class="price-new">39.99 TL</span>
+                            <span class="discount-badge">-50%</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Aksiyon+Oyunu+2" alt="Aksiyon Oyunu 2">
+                    <div class="card-content">
+                        <h3>Uzay Savaşları</h3>
+                        <p class="developer">Geliştirici: Galaxy Studios</p>
+                        <div class="price-info">
+                            <span class="price-old">99.99 TL</span>
+                            <span class="price-new">59.99 TL</span>
+                            <span class="discount-badge">-40%</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Aksiyon+Oyunu+3" alt="Aksiyon Oyunu 3">
+                    <div class="card-content">
+                        <h3>Zombi Avı</h3>
+                        <p class="developer">Geliştirici: Apocalypse Games</p>
+                        <div class="price-info">
+                            <span class="price-old">69.99 TL</span>
+                            <span class="price-new">34.99 TL</span>
+                            <span class="discount-badge">-50%</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Aksiyon+Oyunu+4" alt="Aksiyon Oyunu 4">
+                    <div class="card-content">
+                        <h3>Orman Macerası</h3>
+                        <p class="developer">Geliştirici: Nature Interactive</p>
+                        <div class="price-info">
+                            <span class="price-old">89.99 TL</span>
+                            <span class="price-new">44.99 TL</span>
+                            <span class="discount-badge">-50%</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title"><i class="fas fa-gamepad"></i> Popüler Oyunlar <a href="store.html?filter=popular" class="view-all-link">Tümünü Gör <i class="fas fa-chevron-right"></i></a></h2>
+            <div class="game-grid">
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Pop%C3%BCler+Oyun+1" alt="Popüler Oyun 1">
+                    <div class="card-content">
+                        <h3>Fantastik Diyar</h3>
+                        <p class="developer">Geliştirici: Epic Worlds</p>
+                        <div class="price-info">
+                            <span class="price-new">159.99 TL</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Pop%C3%BCler+Oyun+2" alt="Popüler Oyun 2">
+                    <div class="card-content">
+                        <h3>Galaksi Savaşçıları</h3>
+                        <p class="developer">Geliştirici: Space Tech</p>
+                        <div class="price-info">
+                            <span class="price-new">179.99 TL</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Pop%C3%BCler+Oyun+3" alt="Popüler Oyun 3">
+                    <div class="card-content">
+                        <h3>Futbol 2025</h3>
+                        <p class="developer">Geliştirici: Sports Interactive</p>
+                        <div class="price-info">
+                            <span class="price-new">199.99 TL</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/300x180/2c3e50/ecf0f1?text=Pop%C3%BCler+Oyun+4" alt="Popüler Oyun 4">
+                    <div class="card-content">
+                        <h3>Hayatta Kalma</h3>
+                        <p class="developer">Geliştirici: Survival Games</p>
+                        <div class="price-info">
+                            <span class="price-new">149.99 TL</span>
+                        </div>
+                        <div class="card-buttons">
+                            <button class="card-action-button"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                            <a href="game-detail.html" class="card-action-button"><i class="fas fa-eye"></i> İncele</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about-us">
+                <h4>Hakkımızda</h4>
+                <p>Oyun Dünyası, en yeni ve popüler oyunları keşfetmen için en iyi platform. Eğlenceye dal!</p>
+            </div>
+            <div class="footer-section quick-links">
+                <h4>Hızlı Bağlantılar</h4>
+                <div class="button-grid-footer">
+                    <a href="privacy.html" class="footer-button">Gizlilik Politikası</a>
+                    <a href="terms.html" class="footer-button">Kullanım Koşulları</a>
+                    <a href="support.html" class="footer-button">Destek</a>
+                    <a href="careers.html" class="footer-button">Kariyer</a>
+                </div>
+            </div>
+            <div class="footer-section social-media">
+                <h4>Bizi Takip Edin</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon-button" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon-button" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon-button" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon-button" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Oyun Dünyası. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sepet sayacı için basit bir fonksiyon
+        document.querySelectorAll('.card-action-button:first-child').forEach(button => {
+          button.addEventListener('click', function() {
+            const cartCount = document.querySelector('.cart-count');
+            let count = parseInt(cartCount.textContent.match(/\d+/)[0]);
+            count++;
+            cartCount.textContent = `(${count})`;
+            
+            // Animasyon efekti
+            const cartButton = document.querySelector('.cart-button');
+            cartButton.classList.add('pulse');
+            setTimeout(() => {
+              cartButton.classList.remove('pulse');
+            }, 500);
+          });
+        });
+
+        // Arama çubuğu işlevselliği
+        const searchBar = document.querySelector('.search-bar');
+        searchBar.addEventListener('focusin', () => {
+          searchBar.style.width = '250px';
+        });
+
+        searchBar.addEventListener('focusout', () => {
+          searchBar.style.width = '200px';
+        });
+
+        // Responsive menü için (mobilde)
+        const navbar = document.querySelector('.navbar');
+        const navLinks = document.querySelector('.nav-links');
+        const menuToggle = document.createElement('button');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        menuToggle.className = 'menu-toggle';
+        menuToggle.setAttribute('aria-label', 'Menü');
+        menuToggle.style.display = 'none';
+
+        navbar.insertBefore(menuToggle, navLinks);
+
+        menuToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
+
+        // Medya sorgusu için kontrol
+        function checkScreenSize() {
+          if (window.innerWidth <= 768) {
+            menuToggle.style.display = 'block';
+            navLinks.classList.remove('active');
+          } else {
+            menuToggle.style.display = 'none';
+            navLinks.classList.add('active');
+          }
+        }
+
+        window.addEventListener('resize', checkScreenSize);
+        checkScreenSize();
+    </script>
+</body>
+</html>
